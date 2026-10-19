@@ -182,6 +182,8 @@ export interface Dashboard {
 export interface ApiError {
   message: string;
   reasons: string[];
+  /** True when the request never reached the server, so the sale can be queued. */
+  offline?: boolean;
 }
 
 /** A line on the sale in progress, before it is posted. */

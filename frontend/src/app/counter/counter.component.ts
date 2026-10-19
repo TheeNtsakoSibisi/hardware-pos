@@ -64,6 +64,9 @@ export class CounterComponent {
 
   readonly completed = signal<SaleView | null>(null);
 
+  /** True when the last message was "we kept your sale", not "something broke". */
+  readonly queuedLocally = computed(() => this.error()?.offline === true && this.pendingSync() > 0);
+
   readonly total = computed(() =>
     round2(this.cart().reduce((sum, line) => sum + round2(line.unitPrice * line.qty), 0)));
 
@@ -291,7 +294,7 @@ export class CounterComponent {
   /** A sale that cannot reach the server is queued, not lost. */
   private saleFailed(error: ApiError, queueIt: () => void) {
     this.busy.set(false);
-    if (error.message.includes('cannot reach the server')) {
+    if (error.offline) {
       queueIt();
       this.dialog.set('none');
       this.cart.set([]);
@@ -299,6 +302,7 @@ export class CounterComponent {
       this.error.set({
         message: 'Saved to the till. It will sync when the connection returns.',
         reasons: [],
+        offline: true,
       });
       return;
     }

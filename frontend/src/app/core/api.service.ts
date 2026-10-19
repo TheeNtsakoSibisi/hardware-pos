@@ -92,15 +92,29 @@ export class ApiService {
     return this.http.post<T>(this.base + path, body, this.options).pipe(catchError(this.asApiError));
   }
 
-  /** Turns any failure into the shape the screens already know how to show. */
+  /**
+   * Turns any failure into the one shape the screens handle.
+   *
+   * <p>A dropped connection does not produce an ApiError body: the browser
+   * hands back a ProgressEvent and status 0. That case is flagged rather than
+   * detected by reading the message, because the counter queues the sale on it.
+   */
   private asApiError(error: HttpErrorResponse) {
-    const fallback: ApiError = {
-      message: error.status === 0
-        ? 'The till cannot reach the server.'
-        : 'Something went wrong (' + error.status + ').',
-      reasons: [],
-    };
-    const body = error.error as ApiError | null;
-    return throwError(() => (body && body.message ? body : fallback));
+    if (error.status === 0) {
+      return throwError((): ApiError => ({
+        message: 'The till cannot reach the server.',
+        reasons: [],
+        offline: true,
+      }));
+    }
+    const body = error.error as Partial<ApiError> | null;
+    const message = typeof body?.message === 'string'
+      ? body.message
+      : 'Something went wrong (' + error.status + ').';
+    return throwError((): ApiError => ({
+      message,
+      reasons: Array.isArray(body?.reasons) ? body.reasons : [],
+      offline: false,
+    }));
   }
 }

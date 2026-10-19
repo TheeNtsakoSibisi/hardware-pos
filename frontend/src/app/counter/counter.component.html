@@ -75,10 +75,9 @@
     </div>
 
     @if (error(); as err) {
-      <div class="alert" [class.bad]="err.reasons.length || !err.message.startsWith('Saved')"
-           [class.ok]="err.message.startsWith('Saved')">
+      <div class="alert" [class.bad]="!queuedLocally()" [class.ok]="queuedLocally()">
         {{ err.message }}
-        @if (err.reasons.length) {
+        @if (err.reasons?.length) {
           <ul>
             @for (reason of err.reasons; track reason) { <li>{{ reason }}</li> }
           </ul>
