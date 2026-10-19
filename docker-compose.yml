@@ -1,0 +1,47 @@
+# The whole system on one machine: database, API, till.
+#
+#   docker compose up --build
+#   open http://localhost:4200
+#
+# Sign in as thandi / demo1234 (cashier), johan (manager) or owner (owner).
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: hardwarepos
+      POSTGRES_USER: pos
+      POSTGRES_PASSWORD: pos
+    ports:
+      # Exposed so `mvn verify` on the host can run the integration tests.
+      - "5432:5432"
+    volumes:
+      - pos-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pos -d hardwarepos"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  backend:
+    build: ./backend
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      POS_DB_URL: jdbc:postgresql://db:5432/hardwarepos
+      POS_DB_USER: pos
+      POS_DB_PASSWORD: pos
+      # Optional: set this to switch the quote parser from rules to Claude.
+      POS_AI_ANTHROPIC_API_KEY: ${POS_AI_ANTHROPIC_API_KEY:-}
+    ports:
+      - "8080:8080"
+
+  frontend:
+    build: ./frontend
+    depends_on:
+      - backend
+    ports:
+      - "4200:80"
+
+volumes:
+  pos-data:

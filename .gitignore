@@ -1,0 +1,27 @@
+# Build output
+target/
+dist/
+node_modules/
+*.jar
+*.war
+*.class
+
+# Secrets and local settings. The Anthropic API key is read from the
+# environment and must never be committed.
+.env
+.env.*
+*.local
+application-local.yml
+
+# Tooling
+.idea/
+.vscode/
+*.iml
+.angular/
+.DS_Store
+*.log
+npm-debug.log*
+
+# Test and coverage output
+coverage/
+.nyc_output/

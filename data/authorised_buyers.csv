@@ -1,0 +1,15 @@
+account,name,role,pin,per_sale_limit
+MOK001,Thabo Mokoena,Owner,1111,
+MOK001,Jabu Dlamini,Site foreman,2201,15000
+MOK001,Kagiso Molefe,Driver,2202,5000
+NDL001,Sipho Ndlovu,Owner,1112,
+NDL001,Themba Zulu,Plumber,2203,3000
+SIT001,Lerato Sithole,Owner,1113,
+SIT001,Mandla Nkosi,Site foreman,2204,10000
+KHU001,Bongani Khumalo,Owner,1114,
+VWY001,Pieter van Wyk,Owner,1115,
+VWY001,Andile Mthembu,Electrician,2205,8000
+VWY001,Ruan Botha,Electrician,2206,8000
+VWY001,Lindiwe Cele,Office buyer,2207,20000
+MAH001,Nomsa Mahlangu,Owner,1116,
+MAH001,Sello Maseko,Roofer,2208,4000

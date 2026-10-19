@@ -1,0 +1,77 @@
+<div class="head">
+  <div>
+    <h1>Quote from a builder's list</h1>
+    <p>
+      Paste the list from WhatsApp or email. Each line is matched to stock and priced at the
+      right tier; anything the parser was unsure of is highlighted for you to check.
+    </p>
+  </div>
+</div>
+
+<div class="two q">
+  <div class="panel">
+    <label class="f" for="quote-for" style="margin-top:0">Quote for</label>
+    <select id="quote-for" [ngModel]="accountCode()" (ngModelChange)="accountCode.set($event)">
+      <option value="">Walk-in customer (retail prices)</option>
+      @for (account of accounts(); track account.code) {
+        <option [value]="account.code">{{ account.name }} (trade tier {{ account.priceTier }})</option>
+      }
+    </select>
+
+    <label class="f" for="list">Builder's list</label>
+    <textarea id="list" rows="12" [ngModel]="shoppingList()" (ngModelChange)="shoppingList.set($event)"
+              placeholder="10 pockets cement&#10;2 cube sand&#10;500 stock bricks"></textarea>
+
+    <div class="row" style="margin-top:12px">
+      <button class="btn" (click)="useSample()">Use a sample list</button>
+      <button class="btn primary" [disabled]="busy() || !shoppingList().trim()" (click)="build()">
+        {{ busy() ? 'Working…' : 'Build quote' }}
+      </button>
+    </div>
+
+    @if (error(); as err) {
+      <div class="alert bad" style="margin-top:12px">{{ err.message }}</div>
+    }
+  </div>
+
+  <div class="panel">
+    @if (quote(); as q) {
+      @if (q.linesNeedingChecks > 0) {
+        <div class="alert warn">
+          {{ q.linesNeedingChecks }} line{{ q.linesNeedingChecks === 1 ? '' : 's' }} to check before you send this quote.
+        </div>
+      } @else {
+        <div class="alert ok">Every line matched confidently.</div>
+      }
+
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Line</th><th class="r">Qty</th><th class="r">Price</th><th class="r">Amount</th></tr>
+          </thead>
+          <tbody>
+            @for (line of q.lines; track line.sourceText) {
+              <tr [class]="rowClass(line)">
+                <td>
+                  <div class="muted" style="font-size:12px">“{{ line.sourceText }}”</div>
+                  <div>{{ line.description ?? 'No match in the catalogue' }}</div>
+                  @if (line.note) { <div style="font-size:12px">{{ line.note }}</div> }
+                </td>
+                <td class="r num">{{ line.qty | qty }} {{ line.unit?.toLowerCase() }}</td>
+                <td class="r num">@if (line.unitPrice !== null) { {{ line.unitPrice | rands }} }</td>
+                <td class="r num">@if (line.lineTotal !== null) { {{ line.lineTotal | rands }} }</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <div class="row" style="justify-content:space-between;margin-top:14px">
+        <div class="muted">Priced for {{ q.pricedFor }} · parsed by {{ q.parserUsed }}</div>
+        <div class="num" style="font-size:26px;font-weight:600">{{ q.total | rands }}</div>
+      </div>
+    } @else {
+      <div class="empty">Paste a builder's list and build the quote to see it priced here.</div>
+    }
+  </div>
+</div>

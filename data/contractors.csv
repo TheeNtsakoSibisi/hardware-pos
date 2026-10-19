@@ -1,0 +1,7 @@
+code,name,contact,phone,email,vat_no,tier,limit,terms,status,story
+MOK001,Mokoena Builders,Thabo Mokoena,082 555 0141,accounts@mokoenabuilders.example,4120287731,B,60000,30,ACTIVE,"Reliable builder, always pays within terms"
+NDL001,Ndlovu Plumbing & Drain,Sipho Ndlovu,073 555 0192,sipho@ndlovuplumbing.example,4290115643,A,20000,30,ACTIVE,Close to credit limit
+SIT001,Sithole Construction,Lerato Sithole,071 555 0167,admin@sitholeconstruction.example,4550342218,B,30000,30,ACTIVE,"Over credit limit, sale will be blocked"
+KHU001,Khumalo Renovations,Bongani Khumalo,083 555 0118,bongani@khumaloreno.example,,A,25000,30,ON_HOLD,"90+ days overdue, account on hold"
+VWY001,Van Wyk Electrical,Pieter van Wyk,084 555 0175,office@vanwykelec.example,4830059921,A,40000,30,ACTIVE,"Good payer, several authorised buyers"
+MAH001,Mahlangu Roofing,Nomsa Mahlangu,072 555 0133,nomsa@mahlanguroofing.example,,A,10000,30,ACTIVE,New account opened last month

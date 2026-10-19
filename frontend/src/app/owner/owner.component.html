@@ -1,0 +1,58 @@
+<div class="head">
+  <div>
+    <h1>Owner</h1>
+    <p>How the store is doing: takings, what contractors owe, and what to order in.</p>
+  </div>
+</div>
+
+@if (loading()) {
+  <div class="panel"><div class="empty">Loading…</div></div>
+} @else if (dashboard(); as d) {
+  <div class="kpis">
+    <div class="kpi"><div class="l">Walk-in takings this month</div><div class="v num">{{ d.takingsThisMonth | rands }}</div></div>
+    <div class="kpi"><div class="l">Owed by contractors</div><div class="v num">{{ d.owedByContractors | rands }}</div></div>
+    <div class="kpi">
+      <div class="l">Older than 60 days</div>
+      <div class="v num" [style.color]="d.owedOver60Days > 0 ? 'var(--bad)' : null">{{ d.owedOver60Days | rands }}</div>
+    </div>
+    <div class="kpi"><div class="l">Items at or below reorder level</div><div class="v num" style="color:var(--warn)">{{ d.itemsBelowReorderLevel }}</div></div>
+  </div>
+
+  <div class="two">
+    <div class="panel">
+      <h3 style="margin-bottom:10px">Walk-in takings per day</h3>
+      <svg viewBox="0 0 640 206" width="100%" role="img" aria-label="Walk-in takings per day">
+        <title>Walk-in takings per day</title>
+        @for (bar of bars(); track bar.date) {
+          <rect [attr.x]="bar.x" [attr.y]="bar.y" [attr.width]="bar.width" [attr.height]="bar.height"
+                rx="2" [attr.fill]="bar.saturday ? 'var(--hi)' : 'var(--accent)'">
+            <title>{{ bar.date | date: 'dd MMM' }}: {{ bar.total | rands }}</title>
+          </rect>
+        }
+      </svg>
+      <div class="legend" style="margin-top:4px">
+        <span><i style="background:var(--accent)"></i>Weekday</span>
+        <span><i style="background:var(--hi)"></i>Saturday</span>
+        <span>Closed Sundays</span>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3 style="margin-bottom:8px">Reorder soon</h3>
+      <table>
+        <thead><tr><th>Item</th><th class="r">In stock</th><th class="r">Reorder at</th></tr></thead>
+        <tbody>
+          @for (item of d.reorderSoon; track item.sku) {
+            <tr>
+              <td>{{ item.name }}</td>
+              <td class="r num low">{{ item.onHand | qty }}</td>
+              <td class="r num">{{ item.reorderLevel | qty }}</td>
+            </tr>
+          } @empty {
+            <tr><td colspan="3" class="muted">Nothing is below its reorder level.</td></tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+}

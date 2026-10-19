@@ -1,0 +1,298 @@
+<div class="counter">
+  <div>
+    <div class="search">
+      <input type="search" [ngModel]="term()" (ngModelChange)="term.set($event); search()"
+             placeholder="Scan a barcode or type a product name" aria-label="Search products" autocomplete="off">
+      @if (!online()) {
+        <span class="chip bad">Offline</span>
+      }
+      @if (pendingSync() > 0) {
+        <span class="chip warn">{{ pendingSync() }} queued</span>
+      }
+    </div>
+
+    <div class="cats">
+      @for (cat of categories(); track cat) {
+        <button [attr.aria-pressed]="cat === category()" (click)="chooseCategory(cat)">{{ cat }}</button>
+      }
+    </div>
+
+    <div class="results">
+      @for (product of results(); track product.sku) {
+        <button class="pr" (click)="add(product)">
+          <span class="n">{{ product.name }}</span>
+          <span class="p num">{{ (account() ? (product.price * (account()!.priceTier === 'A' ? 0.9 : 0.85)) : product.price) | rands }}</span>
+          <span class="m">{{ product.sku }} · per {{ product.unit | lowercase }}@if (!product.barcode) { · no barcode }</span>
+          <span class="m" [class.low]="product.stockOnHand <= product.reorderLevel">
+            {{ product.stockOnHand | qty }} in stock
+          </span>
+        </button>
+      } @empty {
+        <div class="empty">No products match that search.</div>
+      }
+    </div>
+  </div>
+
+  <aside class="cart panel" aria-label="Current sale">
+    <div class="seg">
+      <button [attr.aria-pressed]="!account()" (click)="toWalkIn()">Walk-in</button>
+      <button [attr.aria-pressed]="!!account()" (click)="openAccountPicker()">Contractor account</button>
+    </div>
+
+    @if (account(); as acct) {
+      <div class="custbox">
+        <div class="row" style="justify-content:space-between">
+          <b>{{ acct.name }}</b>
+          <span [class]="standingClass(acct.standing)">{{ acct.standing }}</span>
+        </div>
+        <div class="muted">Buyer: {{ buyer()?.name }} · Job: {{ job()?.description }}</div>
+        <div class="muted num">Available credit {{ acct.available | rands }} · Trade tier {{ acct.priceTier }}</div>
+        <button class="btn" style="margin-top:8px;padding:5px 10px" (click)="openAccountPicker()">Change account</button>
+      </div>
+    }
+
+    <div class="lines">
+      @for (line of cart(); track line.product.sku) {
+        <div class="line">
+          <div>
+            <div>{{ line.product.name }}</div>
+            <div class="muted num" style="font-size:13px">{{ line.unitPrice | rands }} / {{ line.product.unit | lowercase }}</div>
+          </div>
+          <div class="lt num">{{ (line.unitPrice * line.qty) | rands }}</div>
+          <div class="qty">
+            <button (click)="changeQty(line, line.qty - 1)" aria-label="Less">−</button>
+            <input type="number" [value]="line.qty" [step]="line.product.decimalQty ? 0.1 : 1" min="0"
+                   (change)="changeQty(line, +$any($event.target).value)" aria-label="Quantity">
+            <button (click)="changeQty(line, line.qty + 1)" aria-label="More">+</button>
+          </div>
+          <div style="text-align:right">
+            <button class="x" (click)="remove(line)">Remove</button>
+          </div>
+        </div>
+      } @empty {
+        <div class="empty">Scan or tap items to start a sale.</div>
+      }
+    </div>
+
+    @if (error(); as err) {
+      <div class="alert" [class.bad]="err.reasons.length || !err.message.startsWith('Saved')"
+           [class.ok]="err.message.startsWith('Saved')">
+        {{ err.message }}
+        @if (err.reasons.length) {
+          <ul>
+            @for (reason of err.reasons; track reason) { <li>{{ reason }}</li> }
+          </ul>
+        }
+      </div>
+    }
+
+    <div class="total">
+      <div>
+        <div style="font-weight:600">Total</div>
+        <small>Incl. VAT {{ (total() * 15 / 115) | rands }} · {{ cart().length }} line{{ cart().length === 1 ? '' : 's' }}</small>
+      </div>
+      <div class="amt num">{{ total() | rands }}</div>
+    </div>
+
+    <div class="row" style="flex-wrap:nowrap">
+      <button class="btn" (click)="clear()">Clear</button>
+      <button class="btn primary big" style="flex:1" [disabled]="!cart().length || busy()" (click)="startPayment()">
+        {{ account() ? 'Charge to account' : 'Take payment' }}
+      </button>
+    </div>
+  </aside>
+</div>
+
+@if (dialog() === 'qty') {
+  <div class="scrim" (click)="dialog.set('none')">
+    <div class="modal" (click)="$event.stopPropagation()" role="dialog" aria-modal="true">
+      <div class="mh">
+        <h2>{{ pendingProduct()?.name }}</h2>
+        <button class="close" (click)="dialog.set('none')" aria-label="Close">×</button>
+      </div>
+      <p class="muted">Sold per {{ pendingProduct()?.unit | lowercase }}. How many?</p>
+      <input type="number" [ngModel]="qtyInput()" (ngModelChange)="qtyInput.set($event)"
+             min="0.1" step="0.1" style="font-size:24px" aria-label="Quantity" autofocus>
+      <div class="keys">
+        @for (preset of [1, 2, 5, 10, 20, 50]; track preset) {
+          <button (click)="qtyInput.set(preset.toString())">{{ preset }}</button>
+        }
+      </div>
+      <div class="row" style="justify-content:flex-end;margin-top:16px">
+        <button class="btn" (click)="dialog.set('none')">Cancel</button>
+        <button class="btn primary" (click)="confirmQty()">Add to sale</button>
+      </div>
+    </div>
+  </div>
+}
+
+@if (dialog() === 'account') {
+  <div class="scrim" (click)="dialog.set('none')">
+    <div class="modal" (click)="$event.stopPropagation()" role="dialog" aria-modal="true">
+      <div class="mh">
+        <h2>Charge to a contractor account</h2>
+        <button class="close" (click)="dialog.set('none')" aria-label="Close">×</button>
+      </div>
+      <p class="muted">Pick the account, then the person collecting confirms with their PIN.</p>
+      @for (acct of accounts(); track acct.code) {
+        <button class="acct" (click)="pickAccount(acct)">
+          <b>{{ acct.name }}</b>
+          <span [class]="standingClass(acct.standing)">{{ acct.standing }}</span>
+          <span class="muted num" style="font-size:13px">Balance {{ acct.balance | rands }} of {{ acct.creditLimit | rands }}</span>
+          <span class="num" style="font-size:13px">Available {{ acct.available | rands }}</span>
+        </button>
+      }
+    </div>
+  </div>
+}
+
+@if (dialog() === 'buyer') {
+  <div class="scrim" (click)="dialog.set('none')">
+    <div class="modal" (click)="$event.stopPropagation()" role="dialog" aria-modal="true">
+      <div class="mh">
+        <h2>{{ account()?.name }}</h2>
+        <button class="close" (click)="dialog.set('none')" aria-label="Close">×</button>
+      </div>
+
+      <label class="f" for="buyer">Who is collecting?</label>
+      <select id="buyer" [ngModel]="buyer()" (ngModelChange)="buyer.set($event)">
+        @for (option of buyers(); track option.id) {
+          <option [ngValue]="option">
+            {{ option.name }}, {{ option.roleTitle }}@if (option.perSaleLimit) { (up to {{ option.perSaleLimit | rands }}) }
+          </option>
+        }
+      </select>
+
+      <label class="f" for="pin">Buyer PIN</label>
+      <input id="pin" type="password" inputmode="numeric" maxlength="6" autocomplete="off"
+             [ngModel]="buyerPin()" (ngModelChange)="buyerPin.set($event)" placeholder="4 digits">
+
+      <label class="f" for="job">Job or site</label>
+      <select id="job" [ngModel]="job()" (ngModelChange)="job.set($event)">
+        @for (option of jobs(); track option.code) {
+          <option [ngValue]="option">{{ option.description }}</option>
+        }
+      </select>
+
+      <label class="f" for="order">Builder's order number (optional)</label>
+      <input id="order" type="text" [ngModel]="orderRef()" (ngModelChange)="orderRef.set($event)" placeholder="e.g. PO4471">
+
+      <div class="row" style="justify-content:flex-end;margin-top:16px">
+        <button class="btn" (click)="dialog.set('none'); toWalkIn()">Cancel</button>
+        <button class="btn primary" [disabled]="!buyerPin() || !buyer() || !job()" (click)="confirmBuyer()">Use this account</button>
+      </div>
+    </div>
+  </div>
+}
+
+@if (dialog() === 'payment') {
+  <div class="scrim" (click)="dialog.set('none')">
+    <div class="modal" (click)="$event.stopPropagation()" role="dialog" aria-modal="true">
+      <div class="mh">
+        <h2>Take payment</h2>
+        <button class="close" (click)="dialog.set('none')" aria-label="Close">×</button>
+      </div>
+      <div class="row" style="justify-content:space-between">
+        <span class="muted">Amount due</span>
+        <span class="bigfig num">{{ total() | rands }}</span>
+      </div>
+
+      <div class="tabs" role="tablist">
+        @for (type of ['CASH', 'CARD', 'EFT']; track type) {
+          <button role="tab" [attr.aria-selected]="tenderType() === type" (click)="tenderType.set($any(type))">
+            {{ type === 'CASH' ? 'Cash' : type === 'CARD' ? 'Card' : 'EFT / instant' }}
+          </button>
+        }
+      </div>
+
+      @if (tenderType() === 'CASH') {
+        <label class="f" for="cash">Cash received</label>
+        <input id="cash" type="number" step="0.01" min="0" style="font-size:22px"
+               [ngModel]="cashReceived()" (ngModelChange)="cashReceived.set($event)">
+        <div class="keys">
+          <button (click)="cashReceived.set(total().toFixed(2))">Exact</button>
+          @for (note of [50, 100, 200, 500]; track note) {
+            <button (click)="cashReceived.set(roundUpTo(note).toFixed(2))">R{{ roundUpTo(note) }}</button>
+          }
+        </div>
+        <div class="row" style="justify-content:space-between;margin-top:12px">
+          <span class="muted">Change to give</span>
+          <span class="bigfig num">{{ change() | rands }}</span>
+        </div>
+      } @else {
+        <p class="muted">
+          {{ tenderType() === 'CARD'
+            ? 'Run the amount on the card machine, then capture the approval code for cash-up.'
+            : 'Hold the goods until the payment reflects, then capture the reference.' }}
+        </p>
+        <label class="f" for="ref">{{ tenderType() === 'CARD' ? 'Approval code' : 'Payment reference' }}</label>
+        <input id="ref" type="text" [ngModel]="tenderReference()" (ngModelChange)="tenderReference.set($event)">
+      }
+
+      <details style="margin-top:14px">
+        <summary>Customer needs a tax invoice with their details</summary>
+        <label class="f" for="tin">Business or customer name</label>
+        <input id="tin" type="text" [ngModel]="taxInvoiceName()" (ngModelChange)="taxInvoiceName.set($event)">
+        <label class="f" for="tiv">VAT number</label>
+        <input id="tiv" type="text" [ngModel]="taxInvoiceVat()" (ngModelChange)="taxInvoiceVat.set($event)">
+      </details>
+
+      <div class="row" style="justify-content:flex-end;margin-top:16px">
+        <button class="btn" (click)="dialog.set('none')">Cancel</button>
+        <button class="btn primary big" [disabled]="busy()" (click)="completeWalkIn()">Complete sale</button>
+      </div>
+    </div>
+  </div>
+}
+
+@if (dialog() === 'override') {
+  <div class="scrim" (click)="dialog.set('none')">
+    <div class="modal" (click)="$event.stopPropagation()" role="dialog" aria-modal="true">
+      <div class="mh">
+        <h2>Sale blocked</h2>
+        <button class="close" (click)="dialog.set('none')" aria-label="Close">×</button>
+      </div>
+      <div class="alert bad">
+        <b>{{ account()?.name }} cannot take {{ total() | rands }} on account.</b>
+        <ul>
+          @for (reason of blockedReasons(); track reason) { <li>{{ reason }}</li> }
+        </ul>
+      </div>
+      @if (auth.canSeeOwnerScreens()) {
+        <p class="muted">Approving this records your name and the reason on the invoice.</p>
+        <label class="f" for="reason">Reason</label>
+        <input id="reason" type="text" [ngModel]="overrideReason()" (ngModelChange)="overrideReason.set($event)"
+               placeholder="e.g. Payment promised Friday">
+        <div class="row" style="justify-content:space-between;margin-top:16px">
+          <button class="btn" (click)="dialog.set('none'); toWalkIn()">Pay now instead</button>
+          <div class="row">
+            <button class="btn" (click)="dialog.set('none')">Cancel</button>
+            <button class="btn danger" [disabled]="!overrideReason().trim()" (click)="approveOverride()">Approve override</button>
+          </div>
+        </div>
+      } @else {
+        <p class="muted">A manager can approve this. Call them to the till, or take payment now instead.</p>
+        <div class="row" style="justify-content:flex-end;margin-top:16px">
+          <button class="btn" (click)="dialog.set('none'); toWalkIn()">Pay now instead</button>
+          <button class="btn primary" (click)="dialog.set('none')">Close</button>
+        </div>
+      }
+    </div>
+  </div>
+}
+
+@if (completed(); as sale) {
+  <div class="scrim" (click)="closeDocument()">
+    <div class="modal wide" (click)="$event.stopPropagation()" role="dialog" aria-modal="true">
+      <div class="mh">
+        <h2>{{ sale.saleType === 'ACCOUNT' ? 'Charged to account' : 'Sale complete' }}</h2>
+        <button class="close" (click)="closeDocument()" aria-label="Close">×</button>
+      </div>
+      <app-document [sale]="sale" [accountName]="account()?.name ?? null"></app-document>
+      <div class="row" style="justify-content:flex-end;margin-top:14px">
+        <button class="btn" (click)="print()">Print</button>
+        <button class="btn primary" (click)="closeDocument()">Done</button>
+      </div>
+    </div>
+  </div>
+}

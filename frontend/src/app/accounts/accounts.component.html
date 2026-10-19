@@ -1,0 +1,176 @@
+@if (detail(); as d) {
+  <button class="btn" style="margin-bottom:12px" (click)="back()">All accounts</button>
+
+  <div class="head" style="margin-top:0">
+    <div>
+      <h2>{{ d.summary.name }} <span [class]="standingClass(d.summary.standing)">{{ d.summary.standing }}</span></h2>
+      <p>
+        {{ d.summary.code }} · {{ d.summary.contactName }} · {{ d.summary.phone }} · {{ d.summary.email }}
+        @if (d.summary.vatNo) { · VAT {{ d.summary.vatNo }} }
+      </p>
+    </div>
+    <button class="btn" (click)="showStatement(d.summary.code)">View statement</button>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="l">Balance</div><div class="v num">{{ d.summary.balance | rands }}</div></div>
+    <div class="kpi"><div class="l">Credit limit</div><div class="v num">{{ d.summary.creditLimit | rands }}</div></div>
+    <div class="kpi">
+      <div class="l">Available</div>
+      <div class="v num" [style.color]="d.summary.available < 0 ? 'var(--bad)' : null">{{ d.summary.available | rands }}</div>
+    </div>
+    <div class="kpi">
+      <div class="l">90+ days</div>
+      <div class="v num" [style.color]="d.summary.ageing.days90Plus > 0 ? 'var(--bad)' : null">{{ d.summary.ageing.days90Plus | rands }}</div>
+    </div>
+  </div>
+
+  <div class="two">
+    <div class="panel">
+      <h3 style="margin-bottom:8px">Invoices</h3>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Date</th><th>Invoice</th><th>Job</th><th>Collected by</th><th class="r">Total</th><th class="r">Open</th></tr>
+          </thead>
+          <tbody>
+            @for (invoice of d.invoices; track invoice.documentNo) {
+              <tr>
+                <td>{{ invoice.date | date: 'dd MMM yyyy' }}</td>
+                <td>
+                  {{ invoice.documentNo }}
+                  @if (invoice.overridden) { <span class="chip warn">Override</span> }
+                </td>
+                <td>{{ invoice.job }}</td>
+                <td>{{ invoice.buyer }}</td>
+                <td class="r num">{{ invoice.total | rands }}</td>
+                <td class="r num">
+                  @if (invoice.outstanding > 0) { {{ invoice.outstanding | rands }} }
+                  @else { <span class="chip ok">Paid</span> }
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="panel">
+        <h3 style="margin-bottom:8px">Ageing</h3>
+        <app-ageing-bar [ageing]="d.summary.ageing"></app-ageing-bar>
+        <table style="margin-top:8px">
+          <tbody>
+            <tr><td>Current</td><td class="r num">{{ d.summary.ageing.current | rands }}</td></tr>
+            <tr><td>30 days</td><td class="r num">{{ d.summary.ageing.days30 | rands }}</td></tr>
+            <tr><td>60 days</td><td class="r num">{{ d.summary.ageing.days60 | rands }}</td></tr>
+            <tr><td>90+ days</td><td class="r num">{{ d.summary.ageing.days90Plus | rands }}</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="panel">
+        <h3 style="margin-bottom:8px">Authorised buyers</h3>
+        <table>
+          <tbody>
+            @for (buyer of d.buyers; track buyer.id) {
+              <tr>
+                <td>{{ buyer.name }}<div class="muted" style="font-size:12px">{{ buyer.roleTitle }}</div></td>
+                <td class="r num">{{ buyer.perSaleLimit ? ('Up to ' + (buyer.perSaleLimit | rands)) : 'No limit' }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <div class="panel">
+        <h3 style="margin-bottom:8px">Spend by job</h3>
+        <table>
+          <tbody>
+            @for (job of d.jobs; track job.code) {
+              <tr><td>{{ job.description }}</td><td class="r num">{{ job.spend | rands }}</td></tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <div class="panel">
+        <h3 style="margin-bottom:8px">Payments received</h3>
+        <table>
+          <tbody>
+            @for (payment of d.payments; track payment.paymentNo) {
+              <tr>
+                <td>{{ payment.date | date: 'dd MMM yyyy' }}<div class="muted" style="font-size:12px">{{ payment.method }} · {{ payment.reference }}</div></td>
+                <td class="r num">{{ payment.amount | rands }}</td>
+              </tr>
+            } @empty {
+              <tr><td class="muted">No payments in the last 90 days.</td></tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+} @else {
+  <div class="head">
+    <div>
+      <h1>Contractor accounts</h1>
+      <p>Balances, ageing and statements. The credit rules at the till come from these numbers.</p>
+    </div>
+  </div>
+
+  @if (loading()) {
+    <div class="panel"><div class="empty">Loading accounts…</div></div>
+  } @else {
+    <div class="kpis">
+      <div class="kpi"><div class="l">Owed by contractors</div><div class="v num">{{ owedTotal | rands }}</div></div>
+      <div class="kpi"><div class="l">Older than 60 days</div><div class="v num" style="color:var(--bad)">{{ over60Total | rands }}</div></div>
+      <div class="kpi"><div class="l">Accounts</div><div class="v num">{{ accounts().length }}</div></div>
+      <div class="kpi"><div class="l">Needing attention</div><div class="v num">{{ needingAttention }}</div></div>
+    </div>
+
+    <div class="panel">
+      <div class="row" style="justify-content:space-between;margin-bottom:6px">
+        <h3>All accounts</h3>
+        <div class="legend">
+          <span><i class="a0"></i>Current</span><span><i class="a30"></i>30 days</span>
+          <span><i class="a60"></i>60 days</span><span><i class="a90"></i>90+ days</span>
+        </div>
+      </div>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Account</th><th>Standing</th><th class="r">Balance</th><th class="r">Limit</th><th class="r">Available</th><th>Ageing</th></tr>
+          </thead>
+          <tbody>
+            @for (account of accounts(); track account.code) {
+              <tr class="click" (click)="open(account)">
+                <td><b>{{ account.name }}</b><div class="muted" style="font-size:12px">{{ account.code }} · {{ account.contactName }}</div></td>
+                <td><span [class]="standingClass(account.standing)">{{ account.standing }}</span></td>
+                <td class="r num">{{ account.balance | rands }}</td>
+                <td class="r num">{{ account.creditLimit | rands }}</td>
+                <td class="r num" [style.color]="account.available < 0 ? 'var(--bad)' : null">{{ account.available | rands }}</td>
+                <td><app-ageing-bar [ageing]="account.ageing"></app-ageing-bar></td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  }
+}
+
+@if (statement(); as s) {
+  <div class="scrim" (click)="closeStatement()">
+    <div class="modal wide" (click)="$event.stopPropagation()" role="dialog" aria-modal="true">
+      <div class="mh">
+        <h2>Statement · {{ s.account.name }}</h2>
+        <button class="close" (click)="closeStatement()" aria-label="Close">×</button>
+      </div>
+      <app-statement [statement]="s"></app-statement>
+      <div class="row" style="justify-content:flex-end;margin-top:14px">
+        <button class="btn primary" (click)="closeStatement()">Done</button>
+      </div>
+    </div>
+  </div>
+}

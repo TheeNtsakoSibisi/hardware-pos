@@ -1,0 +1,224 @@
+sku,barcode,name,category,unit,decimal_qty,retail_incl_vat,cost_excl_vat,stock_on_hand,reorder_level,serialised
+BLD-0001,6000310265355,Cement 42.5N 50kg,Building,BAG,False,108.99,76.32,11.0,5,False
+BLD-0002,6009308836478,Cement 32.5R 50kg,Building,BAG,False,98.99,76.63,12.0,10,False
+BLD-0003,,Plaster sand,Building,BAG,False,44.99,33.23,34.0,20,False
+BLD-0004,,Building sand,Building,BAG,False,41.99,29.86,87.0,50,False
+BLD-0005,,River sand,Building,BAG,False,47.99,36.66,15.0,5,False
+BLD-0006,,Crusher stone 19mm,Building,BAG,False,54.99,40.81,64.0,50,False
+BLD-0007,,Building sand (loose),Building,M3,True,649.99,495.05,120.8,50,False
+BLD-0008,,Crusher stone 19mm (loose),Building,M3,True,779.99,550.35,145.2,50,False
+BLD-0009,,Stock brick NFP,Building,EACH,False,2.99,2.28,13.0,10,False
+BLD-0010,,Face brick red,Building,EACH,False,6.49,5.06,24.0,10,False
+BLD-0011,,Cement block 140mm,Building,EACH,False,14.49,10.98,77.0,50,False
+BLD-0012,,Maxi brick,Building,EACH,False,3.99,2.98,26.0,10,False
+BLD-0013,6002023092518,Lintel 1.2m,Building,EACH,False,88.99,66.15,39.0,20,False
+BLD-0014,6004131796728,Lintel 2.4m,Building,EACH,False,168.99,122.82,72.0,20,False
+BLD-0015,6001407284975,Brickforce 150mm 20m,Building,ROLL,False,78.99,60.18,18.0,5,False
+BLD-0016,6001028833470,DPC 375mm 40m,Building,ROLL,False,239.99,186.15,100.0,50,False
+BLD-0017,6002030601734,Tile adhesive 20kg,Building,BAG,False,138.99,96.73,102.0,50,False
+BLD-0018,6007656681926,Tile grout 5kg white,Building,BAG,False,88.99,63.44,179.0,50,False
+BLD-0019,6005941697533,Rhinolite 40kg,Building,BAG,False,158.99,110.43,130.0,50,False
+BLD-0020,6000101042789,Readymix concrete 40kg,Building,BAG,False,88.99,68.45,31.0,10,False
+BLD-0021,6002502045665,Waterproofing compound 5L,Building,TIN,False,329.99,229.19,182.0,50,False
+TMB-0001,6000439469161,SA pine 38x114 2.4m,Timber,EACH,False,61.99,43.52,28.0,10,False
+TMB-0002,6005179999918,SA pine 38x38 2.4m,Timber,EACH,False,22.99,16.17,39.0,10,False
+TMB-0003,6001263521923,SA pine 50x76 2.4m,Timber,EACH,False,52.99,39.27,2.0,10,False
+TMB-0004,6002604418768,SA pine 38x114 3.0m,Timber,EACH,False,77.99,55.37,87.0,50,False
+TMB-0005,6005610864414,SA pine 38x38 3.0m,Timber,EACH,False,27.99,21.59,19.0,5,False
+TMB-0006,6003873979853,SA pine 50x76 3.0m,Timber,EACH,False,65.99,48.73,24.0,10,False
+TMB-0007,6003387075334,SA pine 38x114 3.6m,Timber,EACH,False,93.99,65.23,17.0,5,False
+TMB-0008,6008014667259,SA pine 38x38 3.6m,Timber,EACH,False,33.99,23.96,9.0,5,False
+TMB-0009,6006375279273,SA pine 50x76 3.6m,Timber,EACH,False,78.99,57.55,20.0,5,False
+TMB-0010,6007746172930,SA pine 38x114 4.2m,Timber,EACH,False,108.99,76.59,115.0,50,False
+TMB-0011,6006330910814,SA pine 38x38 4.2m,Timber,EACH,False,39.99,28.19,21.0,50,False
+TMB-0012,6007317669461,SA pine 50x76 4.2m,Timber,EACH,False,91.99,69.53,26.0,10,False
+TMB-0013,6009976774682,SA pine 38x114 4.8m,Timber,EACH,False,124.99,95.47,75.0,50,False
+TMB-0014,6009768843179,SA pine 38x38 4.8m,Timber,EACH,False,45.99,31.82,29.0,10,False
+TMB-0015,6006520186947,SA pine 50x76 4.8m,Timber,EACH,False,105.99,78.25,15.0,5,False
+TMB-0016,6006810397108,SA pine 38x114 6.0m,Timber,EACH,False,155.99,118.40,9.0,5,False
+TMB-0017,6009183776188,SA pine 38x38 6.0m,Timber,EACH,False,56.99,42.33,28.0,10,False
+TMB-0018,6001385148964,SA pine 50x76 6.0m,Timber,EACH,False,131.99,100.86,196.0,50,False
+TMB-0019,6006704542171,Shutterply 18mm 1220x2440,Timber,SHEET,False,689.99,535.84,116.0,50,False
+TMB-0020,6000127330571,Chipboard 16mm 1830x2750,Timber,SHEET,False,559.99,391.34,35.0,10,False
+TMB-0021,6004595945218,Hardboard 3mm 1220x2440,Timber,SHEET,False,219.99,160.08,35.0,50,False
+TMB-0022,,Meranti PAR 19x44,Timber,M,True,37.99,26.42,380.1,100,False
+TMB-0023,,Pine skirting 69mm,Timber,M,True,28.99,20.32,167.3,50,False
+ROF-0001,6008090268060,IBR sheet 0.47 3.0m,Roofing,EACH,False,214.99,151.98,67.0,20,False
+ROF-0002,6003787209276,Corrugated sheet 0.4 3.0m,Roofing,EACH,False,173.99,126.55,60.0,50,False
+ROF-0003,6009366403170,IBR sheet 0.47 3.6m,Roofing,EACH,False,259.99,197.03,19.0,10,False
+ROF-0004,6004305406576,Corrugated sheet 0.4 3.6m,Roofing,EACH,False,209.99,153.80,155.0,50,False
+ROF-0005,6009085286297,IBR sheet 0.47 4.2m,Roofing,EACH,False,299.99,230.53,34.0,10,False
+ROF-0006,6002840791286,Corrugated sheet 0.4 4.2m,Roofing,EACH,False,244.99,183.39,162.0,50,False
+ROF-0007,6000864764539,IBR sheet 0.47 4.8m,Roofing,EACH,False,344.99,266.33,10.0,5,False
+ROF-0008,6002766523749,Corrugated sheet 0.4 4.8m,Roofing,EACH,False,279.99,210.07,10.0,5,False
+ROF-0009,6008772886864,IBR sheet 0.47 6.0m,Roofing,EACH,False,429.99,331.78,18.0,10,False
+ROF-0010,6007968910965,Corrugated sheet 0.4 6.0m,Roofing,EACH,False,349.99,243.20,14.0,5,False
+ROF-0011,6009519127761,Roof screws 12x65 (box 100),Roofing,BOX,False,219.99,157.06,58.0,50,False
+ROF-0012,6003306947024,Ridge capping 1.8m,Roofing,EACH,False,158.99,111.44,45.0,20,False
+ROF-0013,6002355419285,Sisalation 1.5x27.5m,Roofing,ROLL,False,1149.99,842.24,24.0,10,False
+ROF-0014,6002016583579,Gutter PVC 4m,Roofing,EACH,False,239.99,174.42,19.0,5,False
+ROF-0015,6003639729450,Downpipe PVC 3m,Roofing,EACH,False,188.99,142.26,29.0,20,False
+PLB-0001,6009873884252,PVC sewer pipe 50mm 6m,Plumbing,LENGTH,False,188.99,132.48,19.0,5,False
+PLB-0002,6003759777329,PVC bend 50mm 90deg,Plumbing,EACH,False,22.99,17.55,77.0,20,False
+PLB-0003,6001828623249,PVC junction 50mm,Plumbing,EACH,False,29.99,21.11,10.0,5,False
+PLB-0004,6005340708277,PVC sewer pipe 110mm 6m,Plumbing,LENGTH,False,399.99,307.94,23.0,10,False
+PLB-0005,6007013769780,PVC bend 110mm 90deg,Plumbing,EACH,False,47.99,36.44,189.0,50,False
+PLB-0006,6005014224792,PVC junction 110mm,Plumbing,EACH,False,63.99,47.00,21.0,10,False
+PLB-0007,6006480389995,PVC sewer pipe 160mm 6m,Plumbing,LENGTH,False,789.99,545.06,26.0,20,False
+PLB-0008,6005346912398,PVC bend 160mm 90deg,Plumbing,EACH,False,94.99,72.11,8.0,5,False
+PLB-0009,6009943281737,PVC junction 160mm,Plumbing,EACH,False,125.99,97.81,170.0,50,False
+PLB-0010,,Copper pipe 15mm,Plumbing,M,True,41.99,32.23,140.5,100,False
+PLB-0011,6009493085906,Copper elbow 15mm,Plumbing,EACH,False,18.99,13.65,84.0,50,False
+PLB-0012,6003558773392,Copper tee 15mm,Plumbing,EACH,False,26.99,20.53,19.0,5,False
+PLB-0013,6007020814447,Compression coupling 15mm,Plumbing,EACH,False,33.99,24.79,76.0,20,False
+PLB-0014,,Copper pipe 22mm,Plumbing,M,True,68.99,53.12,192.4,50,False
+PLB-0015,6008365576101,Copper elbow 22mm,Plumbing,EACH,False,30.99,22.36,11.0,20,False
+PLB-0016,6003870879603,Copper tee 22mm,Plumbing,EACH,False,44.99,34.31,69.0,20,False
+PLB-0017,6003580601130,Compression coupling 22mm,Plumbing,EACH,False,54.99,41.01,10.0,5,False
+PLB-0018,,Copper pipe 28mm,Plumbing,M,True,98.99,71.86,385.1,100,False
+PLB-0019,6009293220502,Copper elbow 28mm,Plumbing,EACH,False,44.99,34.10,27.0,20,False
+PLB-0020,6009613300763,Copper tee 28mm,Plumbing,EACH,False,63.99,48.23,64.0,20,False
+PLB-0021,6009751949273,Compression coupling 28mm,Plumbing,EACH,False,78.99,59.84,41.0,20,False
+PLB-0022,,HDPE pipe 15mm,Plumbing,M,True,13.99,10.72,168.6,100,False
+PLB-0023,,HDPE pipe 20mm,Plumbing,M,True,18.99,14.43,272.0,100,False
+PLB-0024,,HDPE pipe 25mm,Plumbing,M,True,25.99,19.25,328.1,100,False
+PLB-0025,6004649409123,Garden hose 20m,Plumbing,EACH,False,299.99,219.98,26.0,10,False
+PLB-0026,6005532814161,Basin mixer chrome,Plumbing,EACH,False,699.99,536.54,145.0,50,False
+PLB-0027,6007048565032,Sink mixer chrome,Plumbing,EACH,False,899.99,671.98,75.0,50,False
+PLB-0028,6000192968580,Pillar tap 15mm,Plumbing,EACH,False,188.99,133.51,12.0,20,False
+PLB-0029,6006678685721,Garden tap brass 15mm,Plumbing,EACH,False,128.99,96.74,12.0,10,False
+PLB-0030,6008996990763,Stopcock 15mm,Plumbing,EACH,False,168.99,125.32,18.0,10,False
+PLB-0031,6003187182951,Tap washer kit,Plumbing,PACK,False,38.99,30.11,140.0,50,False
+PLB-0032,6007315304349,O-ring assortment,Plumbing,PACK,False,48.99,34.33,126.0,50,False
+PLB-0033,6003633696049,PTFE thread tape,Plumbing,EACH,False,11.99,8.70,17.0,5,False
+PLB-0034,6000241849051,Toilet cistern complete,Plumbing,EACH,False,1149.99,895.54,18.0,50,False
+PLB-0035,6007652732558,Toilet pan close-coupled,Plumbing,EACH,False,1449.99,1008.12,36.0,20,False
+PLB-0036,6006600612853,Toilet seat white,Plumbing,EACH,False,229.99,160.34,60.0,20,False
+PLB-0037,6002050248271,Flexi connector 300mm,Plumbing,EACH,False,58.99,44.67,160.0,50,False
+PLB-0038,6008397590839,Geyser 150L 3kW,Plumbing,EACH,False,5999.99,4352.36,14.0,5,False
+PLB-0039,6001537754898,Geyser element 3kW,Plumbing,EACH,False,289.99,220.57,86.0,50,False
+PLB-0040,6002442789237,Geyser thermostat,Plumbing,EACH,False,249.99,191.68,13.0,5,False
+PLB-0041,6007669637970,PVC solvent cement 250ml,Plumbing,TIN,False,98.99,73.87,15.0,50,False
+PLB-0042,6001092788795,Silicone sealant clear,Plumbing,EACH,False,78.99,61.28,31.0,10,False
+ELC-0001,,Surfix cable 1.5mm 3-core,Electrical,M,True,9.49,6.96,244.7,100,False
+ELC-0002,,Surfix cable 2.5mm 3-core,Electrical,M,True,14.49,10.73,96.9,50,False
+ELC-0003,,Surfix cable 4.0mm 3-core,Electrical,M,True,23.99,17.19,41.0,100,False
+ELC-0004,,Surfix cable 6.0mm 3-core,Electrical,M,True,35.99,26.67,79.1,50,False
+ELC-0005,,House wire 2.5mm red,Electrical,M,True,6.49,4.72,171.3,100,False
+ELC-0006,,House wire 2.5mm black,Electrical,M,True,6.49,4.55,22.0,100,False
+ELC-0007,,Earth wire 2.5mm,Electrical,M,True,6.49,4.74,68.4,50,False
+ELC-0008,6007664038349,Conduit PVC 20mm 4m,Electrical,EACH,False,28.99,21.71,83.0,50,False
+ELC-0009,6002780518165,Conduit bend 20mm,Electrical,EACH,False,6.49,4.53,180.0,50,False
+ELC-0010,6005601021147,Single plug socket,Electrical,EACH,False,68.99,53.17,185.0,50,False
+ELC-0011,6009397926071,Double plug socket,Electrical,EACH,False,108.99,78.90,127.0,50,False
+ELC-0012,6005118209718,1-lever light switch,Electrical,EACH,False,44.99,31.96,6.0,5,False
+ELC-0013,6002953736619,2-lever light switch,Electrical,EACH,False,58.99,44.20,62.0,20,False
+ELC-0014,6003693308271,3-pin plug top,Electrical,EACH,False,28.99,22.15,27.0,20,False
+ELC-0015,6009358759976,Extension cord 5m,Electrical,EACH,False,198.99,138.51,11.0,5,False
+ELC-0016,6007808623681,Multiplug 4-way,Electrical,EACH,False,128.99,98.53,12.0,5,False
+ELC-0017,6006282840403,DB board 12-way,Electrical,EACH,False,549.99,387.39,7.0,20,False
+ELC-0018,6000473552815,Circuit breaker 10A,Electrical,EACH,False,78.99,56.76,71.0,50,False
+ELC-0019,6006101152630,Circuit breaker 16A,Electrical,EACH,False,78.99,58.00,67.0,50,False
+ELC-0020,6009456015613,Circuit breaker 20A,Electrical,EACH,False,78.99,56.72,84.0,50,False
+ELC-0021,6000600378048,Circuit breaker 32A,Electrical,EACH,False,78.99,56.10,28.0,10,False
+ELC-0022,6007118613804,Circuit breaker 63A,Electrical,EACH,False,249.99,175.59,51.0,20,False
+ELC-0023,6006258039344,Earth leakage 63A,Electrical,EACH,False,689.99,515.07,9.0,5,False
+ELC-0024,6008656186012,LED downlight 6W,Electrical,EACH,False,58.99,44.29,63.0,50,False
+ELC-0025,6006623392504,LED bulb 9W E27,Electrical,EACH,False,28.99,20.82,13.0,20,False
+ELC-0026,6000669896067,LED bulb 9W B22,Electrical,EACH,False,28.99,20.57,7.0,5,False
+ELC-0027,6005973427335,Bulkhead light outdoor,Electrical,EACH,False,168.99,125.75,14.0,10,False
+ELC-0028,6008663019852,Insulation tape,Electrical,EACH,False,14.99,10.79,8.0,5,False
+ELC-0029,6008092799697,Cable ties 200mm (100),Electrical,PACK,False,48.99,37.54,9.0,5,False
+FST-0001,,Chipboard screw 4x25 (loose),Fasteners,EACH,False,0.45,0.33,15.0,5,False
+FST-0002,6000705677442,Chipboard screw 4x25 (box 200),Fasteners,BOX,False,68.99,48.27,33.0,20,False
+FST-0003,,Chipboard screw 4x40 (loose),Fasteners,EACH,False,0.45,0.31,140.0,50,False
+FST-0004,6000966334737,Chipboard screw 4x40 (box 200),Fasteners,BOX,False,68.99,53.80,17.0,5,False
+FST-0005,,Chipboard screw 5x50 (loose),Fasteners,EACH,False,0.85,0.64,77.0,20,False
+FST-0006,6003719616623,Chipboard screw 5x50 (box 200),Fasteners,BOX,False,128.99,98.24,20.0,5,False
+FST-0007,,Chipboard screw 6x60 (loose),Fasteners,EACH,False,0.85,0.59,33.0,20,False
+FST-0008,6000382785589,Chipboard screw 6x60 (box 200),Fasteners,BOX,False,128.99,99.97,75.0,20,False
+FST-0009,,Wire nails 50mm,Fasteners,KG,True,48.99,34.74,166.0,50,False
+FST-0010,,Wire nails 75mm,Fasteners,KG,True,48.99,36.19,281.7,100,False
+FST-0011,,Wire nails 100mm,Fasteners,KG,True,48.99,38.21,159.2,50,False
+FST-0012,,Roofing nails galv,Fasteners,KG,True,68.99,50.25,143.2,50,False
+FST-0013,,Hex bolt & nut M8x50,Fasteners,EACH,False,4.49,3.32,20.0,10,False
+FST-0014,,Hex bolt & nut M10x75,Fasteners,EACH,False,8.49,6.54,47.0,20,False
+FST-0015,,Hex bolt & nut M12x100,Fasteners,EACH,False,13.99,10.82,36.0,20,False
+FST-0016,,Nylon wall plug 6mm (loose),Fasteners,EACH,False,0.50,0.38,33.0,10,False
+FST-0017,,Nylon wall plug 8mm (loose),Fasteners,EACH,False,0.50,0.38,23.0,20,False
+FST-0018,,Nylon wall plug 10mm (loose),Fasteners,EACH,False,0.50,0.36,28.0,10,False
+FST-0019,,Anchor bolt M10x100,Fasteners,EACH,False,17.99,13.72,45.0,20,False
+FST-0020,,Coach screw 8x100,Fasteners,EACH,False,6.49,4.85,80.0,20,False
+FST-0021,,Washers M10 (loose),Fasteners,EACH,False,0.60,0.44,39.0,10,False
+FST-0022,6000122048554,Hinge butt 100mm (pair),Fasteners,PAIR,False,38.99,30.09,107.0,50,False
+FST-0023,6000114525812,Hasp & staple 100mm,Fasteners,EACH,False,48.99,36.55,69.0,20,False
+FST-0024,6002008549375,Padlock 50mm brass,Fasteners,EACH,False,188.99,132.52,5.0,20,False
+FST-0025,6007320375538,Door lock 3-lever,Fasteners,EACH,False,299.99,214.17,6.0,5,False
+FST-0026,6007253537365,Door handle set,Fasteners,EACH,False,249.99,185.28,158.0,50,False
+PNT-0001,6000701118271,PVA white 1L,Paint,TIN,False,68.99,50.10,13.0,10,False
+PNT-0002,6001524593014,PVA white 5L,Paint,TIN,False,229.99,173.77,76.0,20,False
+PNT-0003,6009140995440,PVA white 20L,Paint,TIN,False,799.99,566.56,11.0,5,False
+PNT-0004,6003163690569,Acrylic exterior white 1L,Paint,TIN,False,98.99,72.04,4.0,5,False
+PNT-0005,6004172050188,Acrylic exterior white 5L,Paint,TIN,False,399.99,284.28,55.0,20,False
+PNT-0006,6007419832103,Acrylic exterior white 20L,Paint,TIN,False,1399.99,985.01,149.0,50,False
+PNT-0007,6005430388888,Enamel gloss black 1L,Paint,TIN,False,148.99,105.24,140.0,50,False
+PNT-0008,6006927348052,Enamel gloss black 5L,Paint,TIN,False,599.99,461.91,10.0,5,False
+PNT-0009,6005253064812,Roof paint red oxide 1L,Paint,TIN,False,118.99,83.34,7.0,10,False
+PNT-0010,6001789495764,Roof paint red oxide 5L,Paint,TIN,False,499.99,378.32,85.0,50,False
+PNT-0011,6002284620073,Roof paint red oxide 20L,Paint,TIN,False,1799.99,1313.02,11.0,5,False
+PNT-0012,6001778634794,Universal undercoat 1L,Paint,TIN,False,108.99,75.53,102.0,50,False
+PNT-0013,6007351979822,Universal undercoat 5L,Paint,TIN,False,449.99,329.00,79.0,20,False
+PNT-0014,6001563943800,Paint roller 225mm,Paint,EACH,False,88.99,63.44,127.0,50,False
+PNT-0015,6007353517475,Paint brush 50mm,Paint,EACH,False,38.99,28.01,9.0,5,False
+PNT-0016,6003944471035,Paint brush 75mm,Paint,EACH,False,54.99,38.13,5.0,20,False
+PNT-0017,6001000286413,Paint tray,Paint,EACH,False,48.99,36.28,14.0,5,False
+PNT-0018,6001199857583,Masking tape 24mm,Paint,EACH,False,28.99,22.57,11.0,5,False
+PNT-0019,,Mineral turps,Paint,L,True,44.99,34.27,161.3,50,False
+PNT-0020,,Sandpaper 120 grit (sheet),Paint,EACH,False,8.49,5.91,189.0,50,False
+PNT-0021,6006592619862,Crack filler 1kg,Paint,TUB,False,68.99,51.33,56.0,20,False
+HTL-0001,6006960743135,Claw hammer 450g,Hand tools,EACH,False,188.99,136.58,20.0,5,False
+HTL-0002,6003986452393,Brick hammer,Hand tools,EACH,False,219.99,156.24,13.0,10,False
+HTL-0003,6006173977357,Club hammer 1.8kg,Hand tools,EACH,False,249.99,185.68,60.0,20,False
+HTL-0004,6006690157832,Steel tape 8m,Hand tools,EACH,False,158.99,117.71,20.0,10,False
+HTL-0005,6005925862352,Spirit level 600mm,Hand tools,EACH,False,198.99,140.17,6.0,5,False
+HTL-0006,6007987780246,Spirit level 1200mm,Hand tools,EACH,False,349.99,254.27,16.0,10,False
+HTL-0007,6003410457532,Brick trowel,Hand tools,EACH,False,138.99,96.23,24.0,10,False
+HTL-0008,6008730343466,Plastering trowel,Hand tools,EACH,False,128.99,96.34,77.0,20,False
+HTL-0009,6007692137635,Wood float,Hand tools,EACH,False,78.99,56.08,14.0,5,False
+HTL-0010,6003571499720,Builders line 100m,Hand tools,EACH,False,68.99,50.76,76.0,20,False
+HTL-0011,6001447526992,Chalk line,Hand tools,EACH,False,88.99,69.10,38.0,10,False
+HTL-0012,6008528075777,Tile cutter 600mm,Hand tools,EACH,False,699.99,493.43,18.0,10,False
+HTL-0013,6000296718780,Hacksaw,Hand tools,EACH,False,148.99,108.68,122.0,50,False
+HTL-0014,6007223716303,Panel saw 550mm,Hand tools,EACH,False,229.99,163.63,69.0,20,False
+HTL-0015,6005587301685,Screwdriver set 6pc,Hand tools,EACH,False,168.99,121.44,37.0,10,False
+HTL-0016,6009240338303,Adjustable spanner 250mm,Hand tools,EACH,False,198.99,149.51,96.0,50,False
+HTL-0017,6007359382833,Pipe wrench 350mm,Hand tools,EACH,False,289.99,208.09,11.0,5,False
+HTL-0018,6001420318747,Pliers combination,Hand tools,EACH,False,118.99,85.49,34.0,20,False
+HTL-0019,6007105624206,Wheelbarrow 65L,Hand tools,EACH,False,899.99,643.28,23.0,10,False
+HTL-0020,6000810052276,Spade round nose,Hand tools,EACH,False,229.99,178.20,11.0,5,False
+HTL-0021,6009153749647,Pick with handle,Hand tools,EACH,False,349.99,259.72,55.0,20,False
+HTL-0022,6006896784188,Safety boots size 8,Hand tools,EACH,False,499.99,366.84,182.0,50,False
+HTL-0023,6004167049178,Safety goggles,Hand tools,EACH,False,48.99,34.98,105.0,50,False
+HTL-0024,6009218673258,Work gloves,Hand tools,EACH,False,38.99,29.93,17.0,20,False
+HTL-0025,6000151498461,Dust mask (5),Hand tools,EACH,False,58.99,42.62,13.0,10,False
+PWT-0001,6007510038234,Angle grinder 115mm 850W,Power tools,EACH,False,899.99,695.39,119.0,50,True
+PWT-0002,6003474967208,Angle grinder 230mm 2200W,Power tools,EACH,False,1899.99,1477.61,188.0,50,True
+PWT-0003,6008697637391,Impact drill 750W,Power tools,EACH,False,1099.99,778.42,12.0,5,True
+PWT-0004,6002142687808,Cordless drill 18V kit,Power tools,EACH,False,2499.99,1901.07,184.0,50,True
+PWT-0005,6001887125382,Rotary hammer SDS 800W,Power tools,EACH,False,2299.99,1627.67,184.0,50,True
+PWT-0006,6001206250493,Circular saw 1400W,Power tools,EACH,False,1799.99,1301.77,68.0,20,True
+PWT-0007,6009224818631,Jigsaw 650W,Power tools,EACH,False,999.99,695.90,89.0,50,True
+PWT-0008,6004698727417,Orbital sander,Power tools,EACH,False,899.99,664.42,170.0,50,True
+PWT-0009,6001533141232,Tile cutter electric 800W,Power tools,EACH,False,2799.99,1996.72,109.0,50,True
+PWT-0010,6000802015057,Welding machine 160A inverter,Power tools,EACH,False,3499.99,2421.96,162.0,50,True
+PWT-0011,6000337806453,Generator 2.8kVA petrol,Power tools,EACH,False,6999.99,4965.39,29.0,10,True
+PWT-0012,6000259603273,Concrete mixer 120L,Power tools,EACH,False,5499.99,3888.43,73.0,50,True
+PWT-0013,6007204685206,Cutting disc 115mm,Power tools,EACH,False,11.99,9.24,2.0,5,False
+PWT-0014,6008532133987,Cutting disc 230mm,Power tools,EACH,False,28.99,22.47,14.0,10,False
+PWT-0015,6008114359179,Grinding disc 115mm,Power tools,EACH,False,24.99,19.28,51.0,20,False
+PWT-0016,6008388417238,Diamond blade 230mm,Power tools,EACH,False,249.99,179.64,16.0,10,False
+PWT-0017,6002137901957,Masonry drill bit 8mm,Power tools,EACH,False,28.99,21.76,49.0,20,False
+PWT-0018,6008302675661,Masonry drill bit 10mm,Power tools,EACH,False,34.99,26.33,66.0,20,False
+PWT-0019,6008687136060,HSS drill bit set 13pc,Power tools,EACH,False,198.99,139.34,16.0,5,False
+PWT-0020,6005513538182,SDS bit 12x160,Power tools,EACH,False,68.99,53.37,85.0,50,False
+PWT-0021,6007369915977,Welding rods 2.5mm 1kg,Power tools,EACH,False,118.99,88.58,17.0,5,False

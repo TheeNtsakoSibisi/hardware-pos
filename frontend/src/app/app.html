@@ -1,0 +1,34 @@
+@if (auth.signedIn()) {
+  <div class="app">
+    <nav class="side" aria-label="Main">
+      <div class="brand">
+        <b>Sibanye Hardware</b>
+        <small>Till 1 · {{ auth.session()?.displayName }}</small>
+      </div>
+
+      <a class="nav" routerLink="/counter" routerLinkActive="active" ariaCurrentWhenActive="page">Counter</a>
+      <a class="nav" routerLink="/quotes" routerLinkActive="active" ariaCurrentWhenActive="page">Quotes</a>
+      <a class="nav" routerLink="/accounts" routerLinkActive="active" ariaCurrentWhenActive="page">Accounts</a>
+      @if (auth.canSeeOwnerScreens()) {
+        <a class="nav" routerLink="/owner" routerLinkActive="active" ariaCurrentWhenActive="page">Owner</a>
+      }
+
+      <div class="foot">
+        @if (!queue.online()) {
+          <div class="chip bad" style="margin-bottom:8px">Offline</div>
+        }
+        @if (queue.pending() > 0) {
+          <div class="chip warn" style="margin-bottom:8px">{{ queue.pending() }} sales queued</div>
+        }
+        Signed in as {{ auth.session()?.role | lowercase }}
+        <button (click)="auth.logout()">Sign out</button>
+      </div>
+    </nav>
+
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+} @else {
+  <router-outlet></router-outlet>
+}

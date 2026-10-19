@@ -1,0 +1,98 @@
+<div class="paperwrap">
+  <div id="printArea">
+    <div class="paper a4 halves">
+      @for (copy of (isAccount ? ['Customer copy', 'Store copy'] : ['', '']); track $index) {
+        <div class="half">
+          @if ($index === 0 || isAccount) {
+            <div class="dh">
+              <div>
+                <h4>{{ store.name }}</h4>
+                <div>{{ store.address }}</div>
+                <div>Tel {{ store.phone }} · VAT {{ store.vatNo }}</div>
+              </div>
+              <div style="text-align:right">
+                <h4>{{ isAccount || sale.customerName ? 'Tax invoice' : 'Till slip / tax invoice' }}</h4>
+                <div>No. {{ sale.documentNo }}</div>
+                <div>{{ sale.occurredAt | date: 'dd MMM yyyy HH:mm' }}</div>
+                @if (copy) { <div class="copy">{{ copy }}</div> }
+              </div>
+            </div>
+
+            @if (isAccount) {
+              <div class="dh">
+                <div>
+                  <b>{{ sale.accountName ?? accountName ?? 'Contractor account' }}</b><br>
+                  Collected by: {{ sale.buyerName }}
+                  @if (sale.orderRef) { <br>Order: {{ sale.orderRef }} }
+                </div>
+                <div style="text-align:right">
+                  @if (sale.jobDescription) { Job: {{ sale.jobDescription }}<br> }
+                  Due: {{ sale.dueDate | date: 'dd MMM yyyy' }}<br>
+                  Served by: {{ sale.capturedBy }}
+                </div>
+              </div>
+            } @else if (sale.customerName) {
+              <div style="margin-bottom:10px">
+                <b>Customer:</b> {{ sale.customerName }}
+                @if (sale.customerVatNo) { · VAT {{ sale.customerVatNo }} }
+              </div>
+            }
+
+            <table>
+              <thead>
+                <tr><th>Item</th><th class="r">Qty</th><th class="r">Price</th><th class="r">Amount</th></tr>
+              </thead>
+              <tbody>
+                @for (line of sale.lines; track line.description) {
+                  <tr>
+                    <td>{{ line.description }}</td>
+                    <td class="r">{{ line.qty | qty }} {{ line.unit | lowercase }}</td>
+                    <td class="r">{{ line.unitPrice | rands }}</td>
+                    <td class="r">{{ line.lineTotal | rands }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+
+            <div class="tot">
+              <div><span>Total excl. VAT</span><span>{{ exclVat | rands }}</span></div>
+              <div><span>VAT 15%</span><span>{{ sale.vat | rands }}</span></div>
+              <div class="g"><span>Total</span><span>{{ sale.total | rands }}</span></div>
+            </div>
+
+            @if (!isAccount) {
+              <div style="margin-top:8px">
+                @for (tender of sale.tenders; track tender.type) {
+                  <div>
+                    {{ tender.type }} {{ tender.amount | rands }}
+                    @if (tender.cashReceived) { · received {{ tender.cashReceived | rands }} · change {{ tender.changeGiven | rands }} }
+                    @if (tender.reference) { · ref {{ tender.reference }} }
+                  </div>
+                }
+              </div>
+              <div style="margin-top:10px;color:#555">Keep this slip for returns and exchanges within 30 days.</div>
+            }
+
+            @if (sale.overrideReason) {
+              <div style="margin-top:6px;font-size:11px">
+                <b>Credit override approved by {{ sale.overrideBy }}:</b> {{ sale.overrideReason }}
+              </div>
+            }
+
+            @if (isAccount) {
+              <div class="sig">
+                <div>Received in good order by (name)</div>
+                <div>Signature</div>
+                <div>Date</div>
+              </div>
+            }
+
+            @if ($index === 0) {
+              <div class="tear">✂ tear here</div>
+            }
+          }
+        </div>
+      }
+    </div>
+  </div>
+</div>

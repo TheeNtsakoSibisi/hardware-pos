@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: ${POS_TEST_DB_URL:jdbc:postgresql://localhost:5432/hardwarepos_test}
+    username: ${POS_TEST_DB_USER:pos}
+    password: ${POS_TEST_DB_PASSWORD:pos}
+  flyway:
+    clean-disabled: false
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
+pos:
+  ai:
+    anthropic-api-key:

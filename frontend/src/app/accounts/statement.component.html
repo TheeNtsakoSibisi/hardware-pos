@@ -1,0 +1,74 @@
+<div class="paperwrap">
+  <div id="printArea">
+    <div class="paper a4">
+      <div class="dh">
+        <div>
+          <h4>{{ store.name }}</h4>
+          <div>{{ store.address }}</div>
+          <div>Tel {{ store.phone }} · VAT {{ store.vatNo }}</div>
+        </div>
+        <div style="text-align:right">
+          <h4>Statement</h4>
+          <div>{{ statement.to | date: 'dd MMM yyyy' }}</div>
+          <div>Account {{ statement.account.code }}</div>
+        </div>
+      </div>
+
+      <div class="dh">
+        <div>
+          <b>{{ statement.account.name }}</b><br>
+          Attn: {{ statement.account.contactName }}<br>
+          {{ statement.account.email }}<br>
+          {{ statement.account.phone }}
+        </div>
+        <div style="text-align:right">
+          Credit limit {{ statement.account.creditLimit | rands }}<br>
+          Terms {{ statement.account.termsDays }} days<br>
+          Trade tier {{ statement.account.priceTier }}
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr><th>Date</th><th>Reference</th><th>Details</th><th class="r">Debit</th><th class="r">Credit</th><th class="r">Balance</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ statement.from | date: 'dd MMM yyyy' }}</td><td></td><td>Opening balance</td>
+            <td></td><td></td><td class="r">{{ statement.openingBalance | rands }}</td>
+          </tr>
+          @for (line of statement.lines; track line.reference) {
+            <tr>
+              <td>{{ line.date | date: 'dd MMM yyyy' }}</td>
+              <td>{{ line.reference }}</td>
+              <td>{{ line.detail }}</td>
+              <td class="r">@if (line.debit > 0) { {{ line.debit | rands }} }</td>
+              <td class="r">@if (line.credit > 0) { {{ line.credit | rands }} }</td>
+              <td class="r">{{ line.balance | rands }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+
+      <table style="margin-top:18px">
+        <thead>
+          <tr><th class="r">Current</th><th class="r">30 days</th><th class="r">60 days</th><th class="r">90+ days</th><th class="r">Amount due</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="r">{{ statement.ageing.current | rands }}</td>
+            <td class="r">{{ statement.ageing.days30 | rands }}</td>
+            <td class="r">{{ statement.ageing.days60 | rands }}</td>
+            <td class="r">{{ statement.ageing.days90Plus | rands }}</td>
+            <td class="r"><b>{{ statement.ageing.total | rands }}</b></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p style="margin-top:18px">
+        Please pay by EFT using reference <b>{{ statement.account.code }}</b>.
+        Banking details are available from the store.
+      </p>
+    </div>
+  </div>
+</div>
