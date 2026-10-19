@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Sibanye Hardware POS demo</title>
+<title>Sibanye Hardware POS — interactive prototype</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600&display=swap" rel="stylesheet">
 <style>:root{--bg:#EDF0F2;--surface:#FFFFFF;--surface-2:#F5F7F8;--ink:#17232C;--muted:#586874;--line:#D3DAE0;--accent:#1D5FAF;--accent-ink:#FFFFFF;--accent-soft:#E3EDF9;--hi:#F2B705;--hi-ink:#1E1A08;--ok:#23704A;--ok-soft:#E2F2E8;--warn:#9A5B00;--warn-soft:#FBEFD9;--bad:#B3261E;--bad-soft:#FBE4E2;--radius:6px;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -203,7 +203,7 @@ td.r{white-space:nowrap}
           <label class="f" for="qText">Builder's list</label><textarea id="qText" rows="10" placeholder="10 pockets cement&#10;2 cube sand&#10;500 stock bricks"></textarea>
           <div data-photo hidden><label class="f" for="qPhoto">Or a photo of the list</label><input type="file" id="qPhoto" accept="image/*"></div>
           <div class="row" style="margin-top:12px"><button class="btn" id="qSample">Use a sample list</button><button class="btn primary ai" id="qBuild">Build quote</button><button class="btn" id="qStop" hidden>Stop</button></div>
-          <div class="alert info" data-ai-note style="margin-top:12px">Claude features work when this page is opened inside Claude. <button class="btn" id="qExample" style="margin-top:8px">Show an example result</button></div>
+          <div class="alert info" data-ai-note style="margin-top:12px">This prototype runs entirely in your browser, so the AI quote parser is not live here. The full system parses the list server-side. <button class="btn" id="qExample" style="margin-top:8px">Show an example result</button></div>
           <div id="qStatus"></div>
         </div>
         <div class="panel" id="qOut"></div>
@@ -226,7 +226,7 @@ td.r{white-space:nowrap}
         <div class="panel">
           <h3>Ask about the store</h3>
           <div class="sugg" id="sugg"><button>Who owes me money past 60 days?</button><button>How did walk-in sales go over the last two weeks?</button><button>Which accounts should I stop giving credit to?</button><button>What should I reorder this week?</button></div>
-          <div class="alert info" data-ai-note>Claude features work when this page is opened inside Claude.</div>
+          <div class="alert info" data-ai-note>Not available in this browser-only prototype. The full system answers this server-side.</div>
           <div class="chat" id="chatLog" aria-live="polite"></div>
           <div class="row" style="margin-top:10px;flex-wrap:nowrap"><input type="text" id="askIn" placeholder="Ask a question about sales, accounts or stock" aria-label="Ask a question"><button class="btn primary ai" id="askBtn">Ask</button></div>
         </div>
@@ -590,7 +590,7 @@ $('#helpBtn').addEventListener('click', async () => {
     <textarea id="hq" autofocus placeholder="e.g. kitchen tap drips from the base when it's on"></textarea>
     <div data-photo hidden><label class="f" for="hp">Or add a photo of the broken part</label><input type="file" id="hp" accept="image/*"></div>
     <div class="sugg">${['Kitchen tap drips from the base','Hang a heavy mirror on a brick wall','Replace a broken plug socket','Paint a small bedroom, about 3 by 3 metres'].map(s=>`<button data-s="${esc(s)}">${esc(s)}</button>`).join('')}</div>
-    <div class="alert info" data-ai-note ${SAMPLE ? 'hidden' : ''}>Claude features work when this page is opened inside Claude.</div>
+    <div class="alert info" data-ai-note ${SAMPLE ? 'hidden' : ''}>Not available in this browser-only prototype. The full system answers this server-side.</div>
     <div id="hout"></div>
     <div class="row" style="justify-content:flex-end;margin-top:12px"><button class="btn" data-close>Close</button><button class="btn primary ai" id="hgo">Suggest items</button></div>`);
   renderAIAvailability();

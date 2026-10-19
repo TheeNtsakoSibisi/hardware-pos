@@ -11,6 +11,9 @@ collect on their behalf. That second half is usually a paper book behind the cou
 **Stack:** Java 21, Spring Boot 3.5, PostgreSQL 16, Flyway, Angular 20, Docker.
 **Tests:** 72 — 53 unit, 19 integration against a real PostgreSQL.
 
+**[Try the interactive prototype →](https://theentsakosibisi.github.io/hardware-pos/)**
+(runs in your browser with sample data; the full stack runs with `docker compose up`)
+
 ![The counter screen](docs/screenshots/01-counter.png)
 
 ---

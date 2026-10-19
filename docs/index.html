@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hardware POS — Ntsako Sibisi</title>
+<meta name="description" content="Point of sale for a small hardware store: walk-in sales and contractor credit accounts. Spring Boot, PostgreSQL, Angular.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EDF0F2; --surface:#FFFFFF; --ink:#17232C; --muted:#586874; --line:#D3DAE0;
+  --accent:#1D5FAF; --accent-ink:#FFFFFF; --hi:#F2B705; --hi-ink:#1E1A08;
+  --ok:#23704A; --bad:#B3261E;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#10171C; --surface:#18222A; --ink:#E6ECF0; --muted:#9AAAB5; --line:#2E3D48;
+    --accent:#72AAEE; --accent-ink:#0B1826; --ok:#72C495; --bad:#F2877F;
+  }
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Barlow",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;font-size:16px;line-height:1.55}
+h1,h2{font-family:"Barlow Condensed","Arial Narrow",Arial,sans-serif;font-weight:600;line-height:1.1;margin:0}
+h1{font-size:clamp(34px,6vw,54px)}
+h2{font-size:26px;margin-bottom:10px}
+.wrap{max-width:1040px;margin:0 auto;padding:48px 20px 80px}
+.lede{font-size:19px;color:var(--muted);max-width:62ch;margin:14px 0 0}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 0;font-size:13px}
+.tags span{border:1px solid var(--line);border-radius:99px;padding:4px 11px;background:var(--surface)}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin:28px 0 0}
+.btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);
+  color:inherit;text-decoration:none;padding:13px 20px;border-radius:6px;font-weight:500}
+.btn:hover{border-color:var(--muted)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.btn.primary:hover{filter:brightness(1.07)}
+.note{font-size:14px;color:var(--muted);margin:14px 0 0;max-width:62ch}
+hr{border:0;border-top:1px solid var(--line);margin:48px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px;margin-top:20px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px 20px}
+.card h3{margin:0 0 6px;font-size:17px;font-weight:600}
+.card p{margin:0;color:var(--muted);font-size:15px}
+.shots{display:grid;grid-template-columns:repeat(auto-fit,minmax(400px,1fr));gap:18px;margin-top:20px}
+figure{margin:0}
+figure img{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+figcaption{font-size:14px;color:var(--muted);margin-top:8px}
+footer{margin-top:56px;font-size:15px;color:var(--muted)}
+footer a{color:inherit}
+code{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:1px 6px;font-size:14px}
+:focus-visible{outline:3px solid var(--hi);outline-offset:3px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>A till for a hardware store</h1>
+    <p class="lede">
+      Most point-of-sale software handles cash over the counter well, and the credit a small
+      hardware store extends to its builders barely at all. That second half is usually a
+      paper book behind the counter. This is both halves, built properly.
+    </p>
+    <div class="tags">
+      <span>Java 21</span><span>Spring Boot 3.5</span><span>PostgreSQL 16</span>
+      <span>Flyway</span><span>Angular 20</span><span>Docker</span><span>72 tests</span>
+    </div>
+    <div class="cta">
+      <a class="btn primary" href="prototype.html">Open the interactive prototype</a>
+      <a class="btn" href="https://github.com/TheeNtsakoSibisi/hardware-pos">Source on GitHub</a>
+    </div>
+    <p class="note">
+      The prototype runs entirely in your browser with sample data: sell something, charge it
+      to Sithole Construction and watch the credit check stop you. The full system — Spring
+      Boot API, PostgreSQL, Angular till — runs from the repository with one
+      <code>docker&nbsp;compose&nbsp;up</code>.
+    </p>
+  </header>
+
+  <hr>
+
+  <section>
+    <h2>What makes it a hardware store's till</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Items with no barcode</h3>
+        <p>Loose screws, sand, bricks, cable by the metre, sand by the cubic metre. Found by name and category, sold in fractions.</p>
+      </div>
+      <div class="card">
+        <h3>Contractor accounts</h3>
+        <p>Credit limits, trade price tiers, job sites, and authorised buyers who each confirm with a PIN and carry their own per-sale ceiling.</p>
+      </div>
+      <div class="card">
+        <h3>Credit rules that bite</h3>
+        <p>Account on hold, debt past 90 days, over the limit, over the buyer's limit — checked together, with a manager override recorded on the invoice.</p>
+      </div>
+      <div class="card">
+        <h3>Statements that reconcile</h3>
+        <p>Payments allocated oldest invoice first; ageing derived from those allocations, so the buckets always add up to the balance.</p>
+      </div>
+      <div class="card">
+        <h3>Quotes from a builder's list</h3>
+        <p>“10 pockets cement, 6 x 110 pipe, 3 boxes 4x40 screws” becomes a priced quote, with anything uncertain flagged for a person to check.</p>
+      </div>
+      <div class="card">
+        <h3>It keeps selling offline</h3>
+        <p>Power cuts and dropped lines are routine. Sales queue on the till with their own identifiers and sync without ever charging twice.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr>
+
+  <section>
+    <h2>The real application</h2>
+    <div class="shots">
+      <figure>
+        <img src="screenshots/01-counter.png" alt="The counter screen with a sale in progress">
+        <figcaption>The counter: search, quantities by the metre, running total.</figcaption>
+      </figure>
+      <figure>
+        <img src="screenshots/04-blocked.png" alt="A sale blocked because the account is over its credit limit">
+        <figcaption>A sale stopped at the limit, with the shortfall in rands.</figcaption>
+      </figure>
+      <figure>
+        <img src="screenshots/05-invoice.png" alt="An A4 tax invoice with a signature copy">
+        <figcaption>A4 invoice: customer copy and a signed store copy.</figcaption>
+      </figure>
+      <figure>
+        <img src="screenshots/06-accounts.png" alt="Contractor accounts with ageing bars">
+        <figcaption>Every account, its standing and how old the debt is.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <footer>
+    Built by <a href="https://github.com/TheeNtsakoSibisi">Ntsako Sibisi</a> — Full Stack Java
+    Engineer, Limpopo, South Africa.
+    The store, its customers and its stock are invented; no real data appears anywhere.
+  </footer>
+</div>
+</body>
+</html>
